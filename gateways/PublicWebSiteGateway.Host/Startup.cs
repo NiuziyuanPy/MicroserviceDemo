@@ -16,7 +16,7 @@ namespace PublicWebSiteGateway.Host
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-           app.InitializeApplication();
+            app.InitializeApplication();
         }
     }
 }

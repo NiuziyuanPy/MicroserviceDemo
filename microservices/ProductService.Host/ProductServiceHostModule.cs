@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Elastic.Apm.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,7 +56,7 @@ namespace ProductService.Host
             {
                 options.IsEnabled = MsDemoConsts.IsMultiTenancyEnabled;
             });
-
+            
             context.Services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
@@ -101,12 +102,17 @@ namespace ProductService.Host
         {
             var app = context.GetApplicationBuilder();
 
+            var configuration = context.GetConfiguration();
+
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAbpClaimsMap();
-            
+
+
+            app.UseElasticApm(configuration);
+
             if (MsDemoConsts.IsMultiTenancyEnabled)
             {
                 app.UseMultiTenancy();

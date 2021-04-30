@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO;
+using Elastic.Apm.AspNetCore;
 using Volo.Abp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -16,7 +19,7 @@ namespace ProductService.Host
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-           app.InitializeApplication();
+            app.InitializeApplication();
         }
     }
 }
